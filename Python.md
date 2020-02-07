@@ -43,7 +43,7 @@
 
 ## 设计模式
 
-1. 单例模式
+1. **单例模式**
 
    1. \_\_new\_\_方式
 
@@ -127,7 +127,64 @@
 
 ## 装饰器
 
+**1. 第一种装饰器**
 
+```python
+def mydecorator(func):
+  	print("I am in mydecorator")
+    def _wrapper(*args, **kwargs):
+      	print("I am in _wrapper")
+        func(*args, **kwargs)
+    return _wrapper
+    
+@mydecorator
+def test():
+  print("I am in test")
+  
+# @mydecorator 只是python中语法糖 相当于 test = mydecorator(test)
+```
+
+**2. 多重装饰器 **
+
+```python
+def cache_redis(func):
+    print("In cache_redis")
+    def _wrapper(*args, **kwargs):
+      	print("In cache_redis_wrapper")
+        func(*args, **kwargs)
+    return _wrapper
+  
+def cache_mongo(func):
+    print("In cache_mongo")
+    def _wrapper(*args, **kwargs):
+      	print("In cache_mongo_wrapper")
+        func(*args, **kwargs)
+    return _wrapper
+  
+@cache_redis
+@cache_mongo
+def number():
+  print("In number")
+  
+# 多重装饰等价于number = cache_redis(cache_mongo(number))
+
+# In cache_mongo
+# In cache_redis
+# In cache_redis_wrapper
+# In cache_mongo_wrapper
+# In number
+```
+
+**3. 带参数装饰器(通用装饰器)**
+
+```python
+def decorator(func):
+    def _wrapper(*args, **kwargs):
+        func(*args, **kwargs)
+    return _wrapper
+```
+
+**4. **
 
 ## 垃圾回收
 
