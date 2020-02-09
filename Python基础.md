@@ -39,57 +39,6 @@
 
   * `__init__`有一个参数self，就是这个`__new__`返回的实例，`__init__`在`__new__`的基础上可以完成一些其它初始化的动作，`__init__`不需要返回值
 
-
-
-## 设计模式
-
-1. **单例模式**
-
-   1. \_\_new\_\_方式
-
-      ```python
-      class SingleTon(object):
-          
-          def __new__(cls, *args, **kwargs):
-              if not hasattr(cls, "_instance")
-                  cls._instance = super().__new__(cls, *args, **kwargs)
-              return cls._instance
-            
-          def __init__(self):
-            pass
-          
-      ```
-
-   2. \_\_new\_\_方式(2)
-
-      ```python
-      class SingleTon(object):
-      		_states = {}
-        
-        	def __new__(cls, *args, **kwargs):
-            obj = super().__new__(cls, *args, **kwargs)
-            obj.__dict__ = cls._states
-            return obj
-          
-          def __init__(self):
-            pass
-          # 共享属性, 所有实例指向同一个__dict__
-      ```
-
-      
-
-   3. 装饰器方式
-
-      ```python
-      def singleton(cls, *args, **kwargs):
-        	_instance = {}
-        	def _singleton(*args, **kwargs):
-          		if cls not in _instance:
-            			_instance[cls] = cls(*args, **kwargs)
-              return _instance[cls]
-          return _singleton
-      ```
-
 ## 编码和解码
 
 > 参考[知乎](https://zhuanlan.zhihu.com/p/38293267)实验楼在线教育
